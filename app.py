@@ -8,10 +8,15 @@ from streamlit_shap import st_shap
 # App Configuration
 st.set_page_config(page_title="BK Churn AI | Customer Retention", layout="wide", page_icon="🏦")
 
-# --- CUSTOM CSS FOR BANK OF KIGALI BRANDING ---
+# --- CUSTOM COMPACT CSS FOR BANK OF KIGALI BRANDING ---
 st.markdown("""
     <style>
-    /* Main Background */
+    /* Global Font & Size Settings */
+    html, body, [class*="css"], .stMarkdown, label, p, div {
+        font-family: 'Times New Roman', Times, serif !important;
+        font-size: 14px !important; /* Reduced from default */
+    }
+    
     .stApp {
         background-color: #f8f9fa;
     }
@@ -20,55 +25,62 @@ st.markdown("""
     section[data-testid="stSidebar"] {
         background-color: #005DAA !important;
         color: white !important;
+        min-width: 250px !important;
+        max-width: 300px !important;
     }
     section[data-testid="stSidebar"] .stMarkdown, section[data-testid="stSidebar"] label {
         color: white !important;
+        font-size: 13px !important;
     }
     
+    /* White Sliders Styling */
+    div[data-testid="stThumbValue"] {
+        color: #005DAA !important;
+        font-weight: bold;
+    }
+    div[data-baseweb="slider"] > div > div {
+        background-color: #ffffff !important; /* White bar */
+        border: 1px solid #005DAA;
+        height: 8px;
+    }
+
+    /* Small Input Boxes with Colored Borders */
+    .stNumberInput input, .stSelectbox div[role="combobox"], .stTextInput input {
+        border: 1.5px solid #005DAA !important;
+        border-radius: 5px !important;
+        padding: 5px !important;
+        height: 35px !important; /* Compact height */
+        font-size: 13px !important;
+    }
+
     /* Header & Title */
     h1 {
         color: #005DAA;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 24px !important; /* Smaller Header */
         font-weight: 800;
-        border-bottom: 3px solid #FFC72C;
-        padding-bottom: 10px;
+        border-bottom: 2px solid #FFC72C;
+        padding-bottom: 5px;
     }
     
-    h2, h3 {
-        color: #005DAA;
-        font-weight: 600;
-    }
+    h2 { font-size: 20px !important; color: #005DAA; }
+    h3 { font-size: 18px !important; color: #005DAA; }
 
-    /* Prediction Card Styling */
+    /* Prediction Card Styling (Compact) */
     .prediction-card {
         background-color: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        border-left: 10px solid #005DAA;
-        margin-bottom: 20px;
-    }
-    
-    /* Button & Slider Styling */
-    .stButton>button {
-        background-color: #FFC72C !important;
-        color: #005DAA !important;
-        font-weight: bold !important;
-        border-radius: 8px !important;
-        border: none !important;
-    }
-    
-    /* Progress Bar Color */
-    .stProgress > div > div > div > div {
-        background-color: #FFC72C;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border-left: 6px solid #005DAA;
+        margin-bottom: 10px;
     }
     
     /* Footer */
     .footer {
         text-align: center;
         color: #6c757d;
-        padding: 20px;
-        font-size: 0.8rem;
+        padding: 10px;
+        font-size: 11px !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -97,11 +109,10 @@ def preprocess_input(input_data, scaler, feature_cols):
 
 # Sidebar Interface
 with st.sidebar:
-    st.image("https://www.bk.rw/themes/bk/logo.png", width=200) # Placeholder for BK Logo
+    st.image("https://www.bk.rw/themes/bk/logo.png", width=150)
     st.markdown("### Customer Intelligence Portal")
     st.markdown("---")
     
-    # Collect User Input
     input_data = {
         'CreditScore': st.slider("Credit Score", 300, 850, 600),
         'Age': st.slider("Customer Age", 18, 100, 35),
@@ -115,67 +126,50 @@ with st.sidebar:
         'Gender': st.selectbox("Gender", ["Female", "Male"])
     }
 
-# Mapping inputs
 input_data[f"Geography_{input_data['Geography']}"] = 1
 input_data[f"Gender_{input_data['Gender']}"] = 1
 del input_data['Geography']
 del input_data['Gender']
 
-# Load Model & Predict
 model, scaler, feature_cols = load_artifacts()
 scaled_input, raw_input_df = preprocess_input(input_data, scaler, feature_cols)
 churn_prob = model.predict_proba(scaled_input)[:, 1][0]
 risk_score = churn_prob * 100
 
-# --- MAIN DASHBOARD LAYOUT ---
+# --- MAIN DASHBOARD ---
 st.title("🏦 BANK OF KIGALI | AI Churn Risk Dashboard")
-st.markdown("#### Empowering your branches with Predictive Customer Intelligence")
-
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("#### Predictive Customer Intelligence System")
 
 col1, col2 = st.columns([1.2, 0.8])
 
 with col1:
     st.markdown('<div class="prediction-card">', unsafe_allow_html=True)
-    st.subheader("AI Analysis: Churn Probability")
+    st.subheader("AI Analysis: Probability")
     
-    # Dynamic Alert Styling
     if risk_score > 70:
-        st.error(f"🚨 **CRITICAL RISK PROFILE**: {risk_score:.1f}%")
-        st.markdown("**Action Required**: Immediate direct intervention by a Branch Manager recommended.")
+        st.error(f"🚨 **CRITICAL RISK**: {risk_score:.1f}%")
     elif risk_score > 40:
-        st.warning(f"⚠️ **MODERATE RISK PROFILE**: {risk_score:.1f}%")
-        st.markdown("**Action Required**: Targeted loyalty incentive or fee waiver recommended.")
+        st.warning(f"⚠️ **MODERATE RISK**: {risk_score:.1f}%")
     else:
-        st.success(f"✅ **LOW RISK PROFILE**: {risk_score:.1f}%")
-        st.markdown("**Action Required**: Standard relationship management; high retention likelihood.")
+        st.success(f"✅ **LOW RISK**: {risk_score:.1f}%")
         
     st.progress(churn_prob)
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
-    st.subheader("Customer Metrics Summary")
+    st.subheader("Customer Metrics")
     st.metric("Risk Score", f"{risk_score:.1f}%", delta=f"{risk_score-20:.1f}%", delta_color="inverse")
-    st.write("---")
-    st.write("**Top Impact Factors Identified:**")
-    st.caption("AI identifying Balance-to-Salary ratio and Activity levels as primary drivers for this profile.")
+    st.caption("Primary drivers: Balance-to-Salary ratio and Engagement levels.")
 
 # SHAP SECTION
-st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("---")
-st.subheader("🔍 AI Interpretability (SHAP Intelligence)")
-st.info("The chart below explains the *why* behind the score. Factors in red push the customer toward leaving, while blue factors pull them back to loyalty.")
-
+st.subheader("🔍 AI Intelligence (SHAP)")
 try:
     xgb_base_model = model.named_estimators_['xgb']
     explainer = shap.TreeExplainer(xgb_base_model)
     shap_values = explainer.shap_values(scaled_input)
-    st_shap(shap.force_plot(explainer.expected_value, shap_values[0], raw_input_df), height=200)
+    st_shap(shap.force_plot(explainer.expected_value, shap_values[0], raw_input_df), height=180)
 except Exception as e:
     st.error("AI Insight temporarily unavailable.")
 
-st.markdown("""
-    <div class="footer">
-        © 2026 Bank of Kigali AI Labs | Developed for Semester 3 Final Project
-    </div>
-""", unsafe_allow_html=True)
+st.markdown('<div class="footer">© 2026 Bank of Kigali AI Labs | Sem 3 Project</div>', unsafe_allow_html=True)
