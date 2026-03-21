@@ -8,7 +8,7 @@ from streamlit_shap import st_shap
 # App Configuration
 st.set_page_config(page_title="Churn AI | Intelligence Dashboard", layout="wide", page_icon="📈")
 
-# --- CUSTOM HIGH-END GLASSMORPHISM UI ---
+# --- CUSTOM HIGH-END SEAMLESS GLASSMORPHISM UI ---
 st.markdown("""
     <style>
     /* Import Modern Font */
@@ -17,34 +17,29 @@ st.markdown("""
     html, body, [class*="css"], .stMarkdown, label, p, div {
         font-family: 'Inter', sans-serif !important;
         font-size: 13px !important;
-        color: #334155;
+        color: #1e293b; /* Deep Slate Text */
     }
 
     .stApp {
         background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     }
 
-    /* --- SIDEBAR (SLIDING PART) - DEEP DARK SLATE --- */
+    /* --- SIDEBAR (SLIDING PART) - SEAMLESS & LIGHT --- */
     section[data-testid="stSidebar"] {
-        background-color: #0f172a !important; /* Even deeper slate for contrast */
-        border-right: 1px solid #1e293b;
+        background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+        border-right: 1px solid rgba(0,0,0,0.05);
     }
     
-    /* Ensuring all sidebar containers are dark */
     [data-testid="stSidebarUserContent"] {
-        background-color: #0f172a !important;
+        background-color: transparent !important;
         padding-top: 2rem !important;
     }
 
+    /* Dark Slate Text for Sidebar (Light Theme) */
     section[data-testid="stSidebar"] .stMarkdown, section[data-testid="stSidebar"] label {
-        color: #f1f5f9 !important;
+        color: #1e293b !important;
     }
     
-    /* Darken the sidebar header area */
-    header[data-testid="stHeader"] {
-        background-color: rgba(255, 255, 255, 0.0) !important;
-    }
-
     /* Title Styling */
     h1 {
         color: #0f172a;
@@ -62,36 +57,25 @@ st.markdown("""
 
     /* Premium Glass Cards */
     .glass-card {
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         padding: 1.5rem;
         border-radius: 12px;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         margin-bottom: 15px;
     }
 
-    /* Inputs - Emerald Borders */
+    /* Inputs - Emerald Accents */
     .stNumberInput input, .stSelectbox div[role="combobox"], .stTextInput input {
         border: 1px solid #cbd5e1 !important;
         border-radius: 6px !important;
         background-color: white !important;
-        transition: all 0.2s;
-    }
-    .stNumberInput input:focus {
-        border-color: #10b981 !important;
-        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1) !important;
     }
 
     /* Progress Bar - Emerald */
     .stProgress > div > div > div > div {
         background-color: #10b981;
-    }
-
-    /* Metrics Color */
-    [data-testid="stMetricValue"] {
-        color: #0f172a !important;
-        font-weight: 700 !important;
     }
 
     /* Unique Footer */
