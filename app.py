@@ -145,7 +145,7 @@ churn_prob = model.predict_proba(scaled_input)[:, 1][0]
 risk_score = churn_prob * 100
 
 # --- DASHBOARD HEADER ---
-st.markdown("<h1>CHURN AI | Intelligence Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h1>BANK CHURN AI | Intelligence Dashboard</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Advanced Predictive Analytics for Customer Retention</p>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([1.3, 0.7])
