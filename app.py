@@ -24,13 +24,25 @@ st.markdown("""
         background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     }
 
-    /* Sidebar - Deep Slate */
+    /* --- SIDEBAR (SLIDING PART) - DEEP DARK SLATE --- */
     section[data-testid="stSidebar"] {
-        background-color: #1e293b !important;
-        border-right: 1px solid #e2e8f0;
+        background-color: #0f172a !important; /* Even deeper slate for contrast */
+        border-right: 1px solid #1e293b;
     }
+    
+    /* Ensuring all sidebar containers are dark */
+    [data-testid="stSidebarUserContent"] {
+        background-color: #0f172a !important;
+        padding-top: 2rem !important;
+    }
+
     section[data-testid="stSidebar"] .stMarkdown, section[data-testid="stSidebar"] label {
         color: #f1f5f9 !important;
+    }
+    
+    /* Darken the sidebar header area */
+    header[data-testid="stHeader"] {
+        background-color: rgba(255, 255, 255, 0.0) !important;
     }
 
     /* Title Styling */
