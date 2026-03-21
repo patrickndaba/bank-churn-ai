@@ -1,0 +1,18 @@
+# Standard Data Science stack
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+xgboost
+catboost
+joblib
+shap
+
+# Streamlit stack
+streamlit
+streamlit-shap
+
+# Snowflake stack
+snowflake-snowpark-python
+snowflake-connector-python[pandas]
