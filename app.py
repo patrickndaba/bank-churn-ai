@@ -33,85 +33,58 @@ st.markdown("""
         background: radial-gradient(circle at top right, #1e293b, #0f172a);
     }
 
-    /* --- SIDEBAR REDESIGN --- */
+    /* --- SIDEBAR REDESIGN (ENGINE 01) --- */
     section[data-testid="stSidebar"] {
-        background-color: #0f172a !important;
-        border-right: 1px solid rgba(255,255,255,0.05);
+        background-color: #020617 !important; /* Deeper, rich navy */
+        border-right: 1px solid rgba(16, 185, 129, 0.2);
     }
     
     [data-testid="stSidebarUserContent"] {
         padding-top: 2rem !important;
     }
 
-    /* Sidebar Label Styling - High Contrast Tags */
+    /* Sidebar Label Styling - Clean Emerald Text */
     section[data-testid="stSidebar"] label {
-        color: #0f172a !important; /* Deep Navy Font */
-        background-color: #10b981 !important; /* Emerald Background */
-        padding: 3px 10px !important;
-        border-radius: 6px !important;
+        color: #10b981 !important; /* Vibrant Emerald */
+        background-color: transparent !important; /* Removed bulky background */
         font-weight: 700 !important;
-        font-size: 10px !important;
-        letter-spacing: 0.5px !important;
-        margin-bottom: 8px !important;
-        display: inline-block !important;
+        font-size: 11px !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 6px !important;
+        display: block !important;
         text-transform: uppercase !important;
     }
 
     /* Sidebar Selectbox & Inputs spacing */
     .stSelectbox, .stSlider, .stNumberInput {
-        margin-bottom: 12px !important;
-    }
-    
-    /* Title & Typography */
-    h1 {
-        background: linear-gradient(90deg, #f8fafc, #10b981);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 28px !important;
-        font-weight: 800 !important;
-        letter-spacing: -1px;
-    }
-    
-    .subtitle {
-        color: var(--text-dim);
-        font-size: 13px !important;
-        margin-bottom: 25px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        margin-bottom: 15px !important;
     }
 
-    /* Premium Glass Cards */
-    .glass-card {
-        background: var(--bg-card);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 2rem;
-        border-radius: 20px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        margin-bottom: 20px;
-    }
-
-    /* Inputs - Emerald Glow */
+    /* Inputs - Dark Slate for Maximum Readability */
     .stNumberInput input, .stSelectbox div[role="combobox"], .stTextInput input {
-        border: 1px solid rgba(255,255,255,0.1) !important;
-        border-radius: 10px !important;
-        background-color: rgba(15, 23, 42, 0.8) !important;
-        color: white !important;
-        transition: all 0.3s ease;
+        border: 1px solid #1e293b !important;
+        border-radius: 6px !important;
+        background-color: #0f172a !important; /* Deep Navy Background */
+        color: #ffffff !important; /* Pure White Text */
+        font-size: 13px !important;
+        padding: 8px !important;
+        transition: all 0.2s ease;
     }
     
-    /* Dropbox Hover - Black */
-    .stSelectbox div[role="combobox"]:hover {
-        background-color: #000000 !important;
-        border-color: var(--primary) !important;
+    /* Dropbox & Input Hover - Visible Slate Glow */
+    .stSelectbox div[role="combobox"]:hover, .stNumberInput input:hover {
+        background-color: #1e293b !important;
+        border-color: #10b981 !important;
         cursor: pointer;
     }
 
-    /* Gray Background for specific area (Active Member) */
+    /* Active Member Container - Professional Integration */
     .active-member-container {
-        background-color: #334155 !important; /* Slate Gray */
-        padding: 10px;
-        border-radius: 8px;
+        background-color: #0f172a !important;
+        border: 1px solid #1e293b;
+        border-left: 4px solid #10b981;
+        padding: 8px 12px;
+        border-radius: 4px;
         margin-bottom: 15px;
     }
 
