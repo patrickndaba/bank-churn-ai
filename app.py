@@ -99,11 +99,19 @@ st.markdown("""
         transition: all 0.3s ease;
     }
     
-    /* Dropbox Hover - Deep Navy */
+    /* Dropbox Hover - Black */
     .stSelectbox div[role="combobox"]:hover {
-        background-color: #0f172a !important;
+        background-color: #000000 !important;
         border-color: var(--primary) !important;
         cursor: pointer;
+    }
+
+    /* Gray Background for specific area (Active Member) */
+    .active-member-container {
+        background-color: #334155 !important; /* Slate Gray */
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
     }
 
     .stNumberInput input:focus {
@@ -169,11 +177,20 @@ with st.sidebar:
         'Balance': st.number_input("ACCOUNT BALANCE", min_value=0.0, value=50000.0),
         'NumOfProducts': st.selectbox("PRODUCTS USED", [1, 2, 3, 4]),
         'HasCrCard': st.checkbox("CREDIT CARD HOLDER", value=True),
-        'IsActiveMember': st.checkbox("ACTIVE MEMBER", value=True),
+    }
+    
+    # Active Member with Gray Background
+    with st.container():
+        st.markdown('<div class="active-member-container">', unsafe_allow_html=True)
+        input_data['IsActiveMember'] = st.checkbox("ACTIVE MEMBER", value=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # Remaining inputs
+    input_data.update({
         'EstimatedSalary': st.number_input("ESTIMATED SALARY", min_value=0.0, value=45000.0),
         'Geography': st.selectbox("REGION", ["France", "Germany", "Spain"]),
         'Gender': st.selectbox("GENDER", ["Female", "Male"])
-    }
+    })
 
 # Data Mapping
 input_data[f"Geography_{input_data['Geography']}"] = 1
