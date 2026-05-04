@@ -171,18 +171,68 @@ with col2:
     st.caption("Drivers: Account activity and balance ratios.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# SHAP SECTION
+# --- AI INSIGHT ENGINE (SHAP) ---
 st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("### 🧠 AI Neural Insights (SHAP)")
-st.info("Technical Explanation: Red features increase risk, Blue features decrease risk. Powered by Stacking Ensemble (XGB+RF+Cat).")
+st.markdown("### 🧠 Decision Intelligence: Why this prediction?")
 
 try:
+    # Get SHAP values from the XGBoost component of the Stacking model
     xgb_base_model = model.named_estimators_['xgb']
     explainer = shap.TreeExplainer(xgb_base_model)
-    shap_values = explainer.shap_values(scaled_input)
-    st_shap(shap.force_plot(explainer.expected_value, shap_values[0], raw_input_df), height=180)
+    shap_vals = explainer.shap_values(scaled_input)
+    
+    # 1. VISUAL INTERPRETATION GUIDE (The "Heart" Explanation)
+    guide_col1, guide_col2 = st.columns(2)
+    with guide_col1:
+        st.markdown("""
+            <div style="background-color: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; border-left: 5px solid #ef4444;">
+                <b style="color: #b91c1c;">🔴 RISK DRIVERS (Positive Score)</b><br>
+                Features in <b>RED</b> are pushing the customer <b>TOWARDS CHURNING</b>. 
+                The larger the bar, the bigger the threat to retention.
+            </div>
+        """, unsafe_allow_html=True)
+    with guide_col2:
+        st.markdown("""
+            <div style="background-color: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; border-left: 5px solid #10b981;">
+                <b style="color: #047857;">🟢 RETENTION STRENGTHS (Negative Score)</b><br>
+                Features in <b>BLUE</b> are pulling the customer <b>TOWARDS STAYING</b>. 
+                These are your strongest leverage points to keep them.
+            </div>
+        """, unsafe_allow_html=True)
+
+    # 2. THE FORCE PLOT
+    st_shap(shap.force_plot(explainer.expected_value, shap_vals[0], raw_input_df, link="logit"), height=200)
+
+    # 3. DYNAMIC NATURAL LANGUAGE INSIGHTS
+    st.markdown("#### 🔍 Strategic Breakdown")
+    
+    # Extract feature importance for this specific prediction
+    feature_names = raw_input_df.columns
+    contributions = pd.DataFrame({
+        'Feature': feature_names,
+        'Influence': shap_vals[0]
+    }).sort_values(by='Influence', ascending=False)
+
+    top_risk = contributions.iloc[0]
+    top_strength = contributions.iloc[-1]
+
+    insight_col1, insight_col2 = st.columns(2)
+    
+    with insight_col1:
+        st.write(f"🚩 **Primary Risk Factor:** `{top_risk['Feature']}`")
+        st.caption(f"This is currently the #1 reason the model is flagging this customer for churn.")
+        
+    with insight_col2:
+        if top_strength['Influence'] < 0:
+            st.write(f"✅ **Primary Retention Asset:** `{top_strength['Feature']}`")
+            st.caption(f"This is the strongest factor currently preventing this customer from leaving.")
+        else:
+            st.write("⚠️ **No Strong Retention Assets**")
+            st.caption("All major factors are currently trending towards a churn risk.")
+
 except Exception as e:
-    st.error("AI Insight engine initializing...")
+    st.error("Decision Intelligence Engine initializing... please ensure model dependencies are loaded.")
+    st.exception(e) # This helps debug if there are issues during the first run
 
 # FOOTER
 st.markdown(f"""
