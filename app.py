@@ -61,7 +61,7 @@ st.markdown("""
     }
 
     /* Inputs - Dark Slate for Maximum Readability */
-    .stNumberInput input, .stSelectbox div[role="combobox"], .stTextInput input {
+    .stNumberInput input, .stTextInput input {
         border: 1px solid #1e293b !important;
         border-radius: 6px !important;
         background-color: #0f172a !important; /* Deep Navy Background */
@@ -70,10 +70,25 @@ st.markdown("""
         padding: 8px !important;
         transition: all 0.2s ease;
     }
+
+    /* Selectboxes (REGION, GENDER, PRODUCTS) - Black Text on Light Background */
+    .stSelectbox div[role="combobox"] {
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        background-color: #f1f5f9 !important; /* Light Background */
+        color: #000000 !important; /* Black Font */
+        font-size: 13px !important;
+        padding: 8px !important;
+    }
+
+    /* Ensure text inside selectbox is black */
+    .stSelectbox div[role="combobox"] * {
+        color: #000000 !important;
+    }
     
-    /* Dropbox & Input Hover - Visible Slate Glow */
+    /* Dropbox Hover - Visible Slate Glow */
     .stSelectbox div[role="combobox"]:hover, .stNumberInput input:hover {
-        background-color: #1e293b !important;
+        background-color: #cbd5e1 !important;
         border-color: #10b981 !important;
         cursor: pointer;
     }
