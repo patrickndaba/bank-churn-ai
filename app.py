@@ -6,87 +6,108 @@ import shap
 from streamlit_shap import st_shap
 
 # App Configuration
-st.set_page_config(page_title="Churn AI | Intelligence Dashboard", layout="wide", page_icon="📈")
+st.set_page_config(page_title="Churn AI | Intelligence Portal", layout="wide", page_icon="📈")
 
-# --- CUSTOM HIGH-END SEAMLESS GLASSMORPHISM UI ---
+# --- CUSTOM PROFESSIONAL "MIDNIGHT EMERALD" UI ---
 st.markdown("""
     <style>
-    /* Import Modern Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    /* Import Premium Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+    :root {
+        --primary: #10b981; /* Emerald */
+        --primary-dark: #059669;
+        --bg-deep: #0f172a; /* Deep Navy */
+        --bg-card: rgba(30, 41, 59, 0.7); /* Slate Glass */
+        --text-main: #f8fafc;
+        --text-dim: #94a3b8;
+    }
 
     html, body, [class*="css"], .stMarkdown, label, p, div {
-        font-family: 'Inter', sans-serif !important;
-        font-size: 13px !important;
-        color: #1e293b; /* Deep Slate Text */
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        color: var(--text-main);
     }
 
     .stApp {
-        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        background: radial-gradient(circle at top right, #1e293b, #0f172a);
     }
 
-    /* --- SIDEBAR (SLIDING PART) - SEAMLESS & LIGHT --- */
+    /* --- SIDEBAR REDESIGN --- */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-        border-right: 1px solid rgba(0,0,0,0.05);
+        background-color: #0f172a !important;
+        border-right: 1px solid rgba(255,255,255,0.05);
     }
     
     [data-testid="stSidebarUserContent"] {
-        background-color: transparent !important;
         padding-top: 2rem !important;
     }
 
-    /* Dark Slate Text for Sidebar (Light Theme) */
-    section[data-testid="stSidebar"] .stMarkdown, section[data-testid="stSidebar"] label {
-        color: #1e293b !important;
+    /* Sidebar Inputs */
+    .stSlider [data-baseweb="slider"] {
+        margin-bottom: 20px;
     }
     
-    /* Title Styling */
+    /* Title & Typography */
     h1 {
-        color: #0f172a;
-        font-size: 26px !important;
+        background: linear-gradient(90deg, #f8fafc, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 32px !important;
         font-weight: 800 !important;
-        letter-spacing: -0.5px;
-        margin-bottom: 0px !important;
+        letter-spacing: -1px;
     }
     
     .subtitle {
-        color: #64748b;
-        font-size: 14px !important;
-        margin-bottom: 20px;
+        color: var(--text-dim);
+        font-size: 15px !important;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
     }
 
     /* Premium Glass Cards */
     .glass-card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        margin-bottom: 15px;
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
     }
 
-    /* Inputs - Emerald Accents */
+    /* Inputs - Emerald Glow */
     .stNumberInput input, .stSelectbox div[role="combobox"], .stTextInput input {
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 6px !important;
-        background-color: white !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 10px !important;
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        color: white !important;
+    }
+    
+    .stNumberInput input:focus {
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 1px var(--primary) !important;
     }
 
-    /* Progress Bar - Emerald */
+    /* Metric Styling */
+    [data-testid="stMetricValue"] {
+        color: var(--primary) !important;
+        font-weight: 800 !important;
+    }
+
+    /* Progress Bar */
     .stProgress > div > div > div > div {
-        background-color: #10b981;
+        background-image: linear-gradient(to right, #059669, #10b981) !important;
     }
 
     /* Unique Footer */
     .footer {
-        margin-top: 50px;
-        padding: 20px;
+        margin-top: 60px;
+        padding: 30px;
         text-align: center;
-        border-top: 1px solid #e2e8f0;
-        color: #94a3b8;
-        font-weight: 500;
-        font-size: 12px !important;
+        color: var(--text-dim);
+        font-size: 11px !important;
+        border-top: 1px solid rgba(255,255,255,0.05);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -115,21 +136,21 @@ def preprocess_input(input_data, scaler, feature_cols):
 
 # Sidebar Header
 with st.sidebar:
-    st.markdown("### 📊 Churn Engine")
-    st.caption("Predictive Intelligence Portal")
+    st.markdown("<h2 style='color:#10b981; margin-bottom:0;'>ENGINE 01</h2>", unsafe_allow_html=True)
+    st.caption("PREDICTIVE INTELLIGENCE UNIT")
     st.markdown("---")
     
     input_data = {
-        'CreditScore': st.slider("Credit Score", 300, 850, 600),
-        'Age': st.slider("Customer Age", 18, 100, 35),
-        'Tenure': st.slider("Tenure (Years)", 0, 10, 3),
-        'Balance': st.number_input("Account Balance", min_value=0.0, value=50000.0),
-        'NumOfProducts': st.selectbox("Products Used", [1, 2, 3, 4]),
-        'HasCrCard': st.checkbox("Credit Card Holder", value=True),
-        'IsActiveMember': st.checkbox("Active Member", value=True),
-        'EstimatedSalary': st.number_input("Estimated Salary", min_value=0.0, value=45000.0),
-        'Geography': st.selectbox("Region", ["France", "Germany", "Spain"]),
-        'Gender': st.selectbox("Gender", ["Female", "Male"])
+        'CreditScore': st.slider("CREDIT SCORE", 300, 850, 600),
+        'Age': st.slider("CUSTOMER AGE", 18, 100, 35),
+        'Tenure': st.slider("TENURE (YEARS)", 0, 10, 3),
+        'Balance': st.number_input("ACCOUNT BALANCE", min_value=0.0, value=50000.0),
+        'NumOfProducts': st.selectbox("PRODUCTS USED", [1, 2, 3, 4]),
+        'HasCrCard': st.checkbox("CREDIT CARD HOLDER", value=True),
+        'IsActiveMember': st.checkbox("ACTIVE MEMBER", value=True),
+        'EstimatedSalary': st.number_input("ESTIMATED SALARY", min_value=0.0, value=45000.0),
+        'Geography': st.selectbox("REGION", ["France", "Germany", "Spain"]),
+        'Gender': st.selectbox("GENDER", ["Female", "Male"])
     }
 
 # Data Mapping
@@ -145,98 +166,86 @@ churn_prob = model.predict_proba(scaled_input)[:, 1][0]
 risk_score = churn_prob * 100
 
 # --- DASHBOARD HEADER ---
-st.markdown("<h1>BANK CHURN AI | Intelligence Dashboard</h1>", unsafe_allow_html=True)
-st.markdown("<p class='subtitle'>Advanced Predictive Analytics for Customer Retention</p>", unsafe_allow_html=True)
+st.markdown("<h1>PREDICTIVE INTELLIGENCE PORTAL</h1>", unsafe_allow_html=True)
+st.markdown("<p class='subtitle'>Customer Retention & Risk Mitigation AI</p>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([1.3, 0.7])
 
 with col1:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    st.markdown("### 🎯 Prediction Analysis")
+    st.markdown("<h3 style='margin-top:0;'>CORE ANALYTICS</h3>", unsafe_allow_html=True)
     
     if risk_score > 70:
-        st.error(f"⚠️ **CRITICAL RISK PROFILE**: {risk_score:.1f}% Churn Probability")
+        st.error(f"CRITICAL RISK: {risk_score:.1f}% PROBABILITY")
     elif risk_score > 40:
-        st.warning(f"🔍 **MODERATE RISK PROFILE**: {risk_score:.1f}% Churn Probability")
+        st.warning(f"ELEVATED RISK: {risk_score:.1f}% PROBABILITY")
     else:
-        st.success(f"✨ **STABLE PROFILE**: {risk_score:.1f}% Churn Probability")
+        st.success(f"STABLE ASSET: {risk_score:.1f}% PROBABILITY")
         
     st.progress(churn_prob)
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    st.markdown("### 📊 Metrics")
-    st.metric("Risk Index", f"{risk_score:.1f}%", f"{risk_score-25:.1f}%", delta_color="inverse")
-    st.caption("Drivers: Account activity and balance ratios.")
+    st.markdown("<h3 style='margin-top:0;'>KPI UNIT</h3>", unsafe_allow_html=True)
+    st.metric("RISK INDEX", f"{risk_score:.1f}%", f"{risk_score-25:.1f}%", delta_color="inverse")
+    st.caption("Real-time variance based on current inputs.")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # --- AI INSIGHT ENGINE (SHAP) ---
 st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("### 🧠 Decision Intelligence: Why this prediction?")
+st.markdown("### 🧠 STRATEGIC INTELLIGENCE: NEURAL DECOMPOSITION")
 
 try:
-    # Get SHAP values from the XGBoost component of the Stacking model
     xgb_base_model = model.named_estimators_['xgb']
     explainer = shap.TreeExplainer(xgb_base_model)
     shap_vals = explainer.shap_values(scaled_input)
     
-    # 1. VISUAL INTERPRETATION GUIDE (The "Heart" Explanation)
+    # Visual Guide for Dark Theme
     guide_col1, guide_col2 = st.columns(2)
     with guide_col1:
         st.markdown("""
-            <div style="background-color: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; border-left: 5px solid #ef4444;">
-                <b style="color: #b91c1c;">🔴 RISK DRIVERS (Positive Score)</b><br>
-                Features in <b>RED</b> are pushing the customer <b>TOWARDS CHURNING</b>. 
-                The larger the bar, the bigger the threat to retention.
+            <div style="background-color: rgba(239, 68, 68, 0.15); padding: 15px; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                <b style="color: #f87171;">🔴 RISK ACCELERATORS</b><br>
+                <span style="font-size: 12px; color: #cbd5e1;">Features pushing the prediction towards churn.</span>
             </div>
         """, unsafe_allow_html=True)
     with guide_col2:
         st.markdown("""
-            <div style="background-color: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; border-left: 5px solid #10b981;">
-                <b style="color: #047857;">🟢 RETENTION STRENGTHS (Negative Score)</b><br>
-                Features in <b>BLUE</b> are pulling the customer <b>TOWARDS STAYING</b>. 
-                These are the strongest leverage points to keep them.
+            <div style="background-color: rgba(16, 185, 129, 0.15); padding: 15px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                <b style="color: #34d399;">🟢 RETENTION ANCHORS</b><br>
+                <span style="font-size: 12px; color: #cbd5e1;">Features stabilizing the customer relationship.</span>
             </div>
         """, unsafe_allow_html=True)
 
-    # 2. THE FORCE PLOT
-    st_shap(shap.force_plot(explainer.expected_value, shap_vals[0], raw_input_df, link="logit"), height=200)
+    # The Plot
+    st_shap(shap.force_plot(explainer.expected_value, shap_vals[0], raw_input_df, link="logit", text_rotation=0, plot_cmap=["#10b981", "#ef4444"]), height=200)
 
-    # 3. DYNAMIC NATURAL LANGUAGE INSIGHTS
-    st.markdown("#### 🔍 Strategic Breakdown")
-    
-    # Extract feature importance for this specific prediction
+    # Dynamic Insights
     feature_names = raw_input_df.columns
-    contributions = pd.DataFrame({
-        'Feature': feature_names,
-        'Influence': shap_vals[0]
-    }).sort_values(by='Influence', ascending=False)
+    contributions = pd.DataFrame({'Feature': feature_names, 'Influence': shap_vals[0]}).sort_values(by='Influence', ascending=False)
 
     top_risk = contributions.iloc[0]
     top_strength = contributions.iloc[-1]
 
-    insight_col1, insight_col2 = st.columns(2)
-    
-    with insight_col1:
-        st.write(f"🚩 **Primary Risk Factor:** `{top_risk['Feature']}`")
-        st.caption(f"This is currently the #1 reason the model is flagging this customer for churn.")
-        
-    with insight_col2:
+    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+    st.markdown("#### ⚡ ACTIONABLE INTELLIGENCE")
+    i_col1, i_col2 = st.columns(2)
+    with i_col1:
+        st.write(f"🚩 **CRITICAL DRIVER:** `{top_risk['Feature']}`")
+        st.caption("Primary catalyst for churn risk in this profile.")
+    with i_col2:
         if top_strength['Influence'] < 0:
-            st.write(f"✅ **Primary Retention Asset:** `{top_strength['Feature']}`")
-            st.caption(f"This is the strongest factor currently preventing this customer from leaving.")
-        else:
-            st.write("⚠️ **No Strong Retention Assets**")
-            st.caption("All major factors are currently trending towards a churn risk.")
+            st.write(f"🛡️ **RETENTION ANCHOR:** `{top_strength['Feature']}`")
+            st.caption("Strongest factor preventing profile escalation.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 except Exception as e:
-    st.error("Decision Intelligence Engine initializing... please ensure model dependencies are loaded.")
-    st.exception(e) # This helps debug if there are issues during the first run
+    st.info("System initializing decision intelligence...")
 
 # FOOTER
 st.markdown(f"""
     <div class="footer">
-        Developed by Patrick Ndabarishye 
+        PREDICTIVE INTELLIGENCE PORTAL v2.0 | Developed by Patrick Ndabarishye 
     </div>
 """, unsafe_allow_html=True)
