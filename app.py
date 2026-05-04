@@ -187,6 +187,6 @@ except Exception as e:
 # FOOTER
 st.markdown(f"""
     <div class="footer">
-        Developed by Patrick Ndabarishye | © 2026 AI Intelligence Labs<br>
+        Developed by Patrick Ndabarishye 
     </div>
 """, unsafe_allow_html=True)
