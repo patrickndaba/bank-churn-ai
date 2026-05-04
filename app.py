@@ -188,6 +188,5 @@ except Exception as e:
 st.markdown(f"""
     <div class="footer">
         Developed by Patrick Ndabarishye | © 2026 AI Intelligence Labs<br>
-        Built with Advanced Stacking Ensemble & SHAP Explainability
     </div>
 """, unsafe_allow_html=True)
