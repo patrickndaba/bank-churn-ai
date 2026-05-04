@@ -42,9 +42,23 @@ st.markdown("""
         padding-top: 2rem !important;
     }
 
-    /* Sidebar Inputs */
-    .stSlider [data-baseweb="slider"] {
-        margin-bottom: 20px;
+    /* Sidebar Label Styling - High Contrast Tags */
+    section[data-testid="stSidebar"] label {
+        color: #0f172a !important; /* Deep Navy Font */
+        background-color: #10b981 !important; /* Emerald Background */
+        padding: 4px 12px !important;
+        border-radius: 6px !important;
+        font-weight: 700 !important;
+        font-size: 11px !important;
+        letter-spacing: 0.5px !important;
+        margin-bottom: 8px !important;
+        display: inline-block !important;
+        text-transform: uppercase !important;
+    }
+
+    /* Sidebar Selectbox & Inputs spacing */
+    .stSelectbox, .stSlider, .stNumberInput {
+        margin-bottom: 15px !important;
     }
     
     /* Title & Typography */
@@ -246,6 +260,6 @@ except Exception as e:
 # FOOTER
 st.markdown(f"""
     <div class="footer">
-        PREDICTIVE INTELLIGENCE PORTAL v2.0 | Developed by Patrick Ndabarishye 
+        PREDICTIVE INTELLIGENCE PORTAL v1.0 | Developed by Patrick Ndabarishye 
     </div>
 """, unsafe_allow_html=True)
