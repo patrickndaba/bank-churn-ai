@@ -96,8 +96,16 @@ st.markdown("""
         border-radius: 10px !important;
         background-color: rgba(15, 23, 42, 0.8) !important;
         color: white !important;
+        transition: all 0.3s ease;
     }
     
+    /* Dropbox Hover - Deep Navy */
+    .stSelectbox div[role="combobox"]:hover {
+        background-color: #0f172a !important;
+        border-color: var(--primary) !important;
+        cursor: pointer;
+    }
+
     .stNumberInput input:focus {
         border-color: var(--primary) !important;
         box-shadow: 0 0 0 1px var(--primary) !important;
