@@ -24,7 +24,8 @@ st.markdown("""
     }
 
     html, body, [class*="css"], .stMarkdown, label, p, div {
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-family: 'Times New Roman', Times, serif !important;
+        font-size: 13px !important;
         color: var(--text-main);
     }
 
@@ -46,10 +47,10 @@ st.markdown("""
     section[data-testid="stSidebar"] label {
         color: #0f172a !important; /* Deep Navy Font */
         background-color: #10b981 !important; /* Emerald Background */
-        padding: 4px 12px !important;
+        padding: 3px 10px !important;
         border-radius: 6px !important;
         font-weight: 700 !important;
-        font-size: 11px !important;
+        font-size: 10px !important;
         letter-spacing: 0.5px !important;
         margin-bottom: 8px !important;
         display: inline-block !important;
@@ -58,7 +59,7 @@ st.markdown("""
 
     /* Sidebar Selectbox & Inputs spacing */
     .stSelectbox, .stSlider, .stNumberInput {
-        margin-bottom: 15px !important;
+        margin-bottom: 12px !important;
     }
     
     /* Title & Typography */
@@ -66,15 +67,15 @@ st.markdown("""
         background: linear-gradient(90deg, #f8fafc, #10b981);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 32px !important;
+        font-size: 28px !important;
         font-weight: 800 !important;
         letter-spacing: -1px;
     }
     
     .subtitle {
         color: var(--text-dim);
-        font-size: 15px !important;
-        margin-bottom: 30px;
+        font-size: 13px !important;
+        margin-bottom: 25px;
         text-transform: uppercase;
         letter-spacing: 2px;
     }
