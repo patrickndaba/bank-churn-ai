@@ -196,7 +196,7 @@ try:
             <div style="background-color: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; border-left: 5px solid #10b981;">
                 <b style="color: #047857;">🟢 RETENTION STRENGTHS (Negative Score)</b><br>
                 Features in <b>BLUE</b> are pulling the customer <b>TOWARDS STAYING</b>. 
-                These are your strongest leverage points to keep them.
+                These are the strongest leverage points to keep them.
             </div>
         """, unsafe_allow_html=True)
 
