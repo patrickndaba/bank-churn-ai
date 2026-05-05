@@ -8,19 +8,20 @@ from streamlit_shap import st_shap
 # App Configuration
 st.set_page_config(page_title="Churn AI | Intelligence Portal", layout="wide", page_icon="📈")
 
-# --- CUSTOM PROFESSIONAL "MIDNIGHT EMERALD" UI ---
+# --- CUSTOM PROFESSIONAL "IVORY & ARCTIC" LIGHT UI ---
 st.markdown("""
     <style>
     /* Import Premium Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
 
     :root {
-        --primary: #10b981; /* Emerald */
-        --primary-dark: #059669;
-        --bg-deep: #0f172a; /* Deep Navy */
-        --bg-card: rgba(30, 41, 59, 0.7); /* Slate Glass */
-        --text-main: #f8fafc;
-        --text-dim: #94a3b8;
+        --primary: #0f172a; /* Deep Navy */
+        --accent: #10b981; /* Emerald */
+        --bg-main: #f8fafc; /* Arctic White */
+        --bg-sidebar: #ffffff;
+        --text-main: #1e293b;
+        --text-dim: #64748b;
+        --card-bg: rgba(255, 255, 255, 0.8);
     }
 
     html, body, [class*="css"], .stMarkdown, label, p, div {
@@ -30,23 +31,22 @@ st.markdown("""
     }
 
     .stApp {
-        background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     }
 
-    /* --- SIDEBAR REDESIGN (ENGINE 01) --- */
+    /* --- SIDEBAR REDESIGN (LIGHT MODE) --- */
     section[data-testid="stSidebar"] {
-        background-color: #020617 !important; /* Deeper, rich navy */
-        border-right: 1px solid rgba(16, 185, 129, 0.2);
+        background-color: var(--bg-sidebar) !important;
+        border-right: 1px solid #e2e8f0;
     }
     
     [data-testid="stSidebarUserContent"] {
         padding-top: 2rem !important;
     }
 
-    /* Sidebar Label Styling - Clean Emerald Text */
+    /* Sidebar Label Styling - Professional Slate */
     section[data-testid="stSidebar"] label {
-        color: #10b981 !important; /* Vibrant Emerald */
-        background-color: transparent !important; /* Removed bulky background */
+        color: var(--primary) !important;
         font-weight: 700 !important;
         font-size: 11px !important;
         letter-spacing: 1px !important;
@@ -55,57 +55,57 @@ st.markdown("""
         text-transform: uppercase !important;
     }
 
-    /* Sidebar Selectbox & Inputs spacing */
-    .stSelectbox, .stSlider, .stNumberInput {
-        margin-bottom: 15px !important;
-    }
-
-    /* Inputs - Dark Slate for Maximum Readability */
-    .stNumberInput input, .stTextInput input {
-        border: 1px solid #1e293b !important;
-        border-radius: 6px !important;
-        background-color: #0f172a !important; /* Deep Navy Background */
-        color: #ffffff !important; /* Pure White Text */
+    /* Inputs - Clean Ivory Style */
+    .stNumberInput input, .stTextInput input, .stSelectbox div[role="combobox"] {
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 8px !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
         font-size: 13px !important;
         padding: 8px !important;
         transition: all 0.2s ease;
     }
-
-    /* Selectboxes (REGION, GENDER, PRODUCTS) - Black Text on Light Background */
-    .stSelectbox div[role="combobox"] {
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 6px !important;
-        background-color: #f1f5f9 !important; /* Light Background */
-        color: #000000 !important; /* Black Font */
-        font-size: 13px !important;
-        padding: 8px !important;
-    }
-
-    /* Ensure text inside selectbox is black */
-    .stSelectbox div[role="combobox"] * {
-        color: #000000 !important;
-    }
     
-    /* Dropbox Hover - Visible Slate Glow */
-    .stSelectbox div[role="combobox"]:hover, .stNumberInput input:hover {
-        background-color: #cbd5e1 !important;
-        border-color: #10b981 !important;
-        cursor: pointer;
+    .stSelectbox div[role="combobox"]:hover {
+        background-color: #f8fafc !important;
+        border-color: var(--accent) !important;
     }
 
-    /* Active Member Container - Professional Integration */
+    /* Active Member Container - Light Integration */
     .active-member-container {
-        background-color: #0f172a !important;
-        border: 1px solid #1e293b;
-        border-left: 4px solid #10b981;
+        background-color: #f1f5f9 !important;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid var(--accent);
         padding: 8px 12px;
-        border-radius: 4px;
+        border-radius: 6px;
         margin-bottom: 15px;
     }
 
-    .stNumberInput input:focus {
-        border-color: var(--primary) !important;
-        box-shadow: 0 0 0 1px var(--primary) !important;
+    /* Title & Typography */
+    h1 {
+        color: var(--primary);
+        font-size: 30px !important;
+        font-weight: 800 !important;
+        letter-spacing: -1px;
+    }
+    
+    .subtitle {
+        color: var(--text-dim);
+        font-size: 13px !important;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* Premium Glass Cards (Light) */
+    .glass-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
     }
 
     /* Metric Styling */
@@ -114,19 +114,14 @@ st.markdown("""
         font-weight: 800 !important;
     }
 
-    /* Progress Bar */
-    .stProgress > div > div > div > div {
-        background-image: linear-gradient(to right, #059669, #10b981) !important;
-    }
-
-    /* Unique Footer */
+    /* Footer */
     .footer {
         margin-top: 60px;
         padding: 30px;
         text-align: center;
         color: var(--text-dim);
         font-size: 11px !important;
-        border-top: 1px solid rgba(255,255,255,0.05);
+        border-top: 1px solid #e2e8f0;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -155,7 +150,7 @@ def preprocess_input(input_data, scaler, feature_cols):
 
 # Sidebar Header
 with st.sidebar:
-    st.markdown("<h2 style='color:#10b981; margin-bottom:0;'>ENGINE 01</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color:#0f172a; margin-bottom:0;'>ENGINE 01</h2>", unsafe_allow_html=True)
     st.caption("PREDICTIVE INTELLIGENCE UNIT")
     st.markdown("---")
     
@@ -168,7 +163,7 @@ with st.sidebar:
         'HasCrCard': st.checkbox("CREDIT CARD HOLDER", value=True),
     }
     
-    # Active Member with Gray Background
+    # Active Member with Professional Integration
     with st.container():
         st.markdown('<div class="active-member-container">', unsafe_allow_html=True)
         input_data['IsActiveMember'] = st.checkbox("ACTIVE MEMBER", value=True)
@@ -201,7 +196,7 @@ col1, col2 = st.columns([1.3, 0.7])
 
 with col1:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    st.markdown("<h3 style='margin-top:0;'>CORE ANALYTICS</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='margin-top:0; color:#0f172a;'>CORE ANALYTICS</h3>", unsafe_allow_html=True)
     
     if risk_score > 70:
         st.error(f"CRITICAL RISK: {risk_score:.1f}% PROBABILITY")
@@ -215,69 +210,63 @@ with col1:
 
 with col2:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    st.markdown("<h3 style='margin-top:0;'>KPI UNIT</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='margin-top:0; color:#0f172a;'>KPI UNIT</h3>", unsafe_allow_html=True)
     st.metric("RISK INDEX", f"{risk_score:.1f}%", f"{risk_score-25:.1f}%", delta_color="inverse")
-    st.caption("Real-time variance based on current inputs.")
+    st.caption("Real-time variance based on current profile.")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # --- AI INSIGHT ENGINE (SHAP) ---
 st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("### 🧠 STRATEGIC INTELLIGENCE: NEURAL DECOMPOSITION")
+st.markdown("<h3 style='color:#0f172a;'>🧠 STRATEGIC INTELLIGENCE: NEURAL DECOMPOSITION</h3>", unsafe_allow_html=True)
 
 try:
     xgb_base_model = model.named_estimators_['xgb']
     explainer = shap.TreeExplainer(xgb_base_model)
     shap_vals = explainer.shap_values(scaled_input)
     
-    # --- ROBUST SHAP CLASS SELECTION ---
-    # For binary models, SHAP may return a list [stay_vals, churn_vals] 
-    # or just a single array of churn_vals depending on model type/version.
     if isinstance(shap_vals, list):
-        # We target Class 1 (Churn) which is the second item in the list
         display_shap_vals = shap_vals[1]
         base_value = explainer.expected_value[1]
     else:
-        # If it's a single array, we use it directly
         display_shap_vals = shap_vals
         base_value = explainer.expected_value
 
-    # Visual Guide for Dark Theme
+    # Visual Guide for Light Theme
     guide_col1, guide_col2 = st.columns(2)
     with guide_col1:
         st.markdown("""
-            <div style="background-color: rgba(239, 68, 68, 0.15); padding: 15px; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.3);">
-                <b style="color: #f87171;">🔴 RISK ACCELERATORS</b><br>
-                <span style="font-size: 12px; color: #cbd5e1;">Features pushing the prediction towards churn (Positive).</span>
+            <div style="background-color: #fee2e2; padding: 15px; border-radius: 12px; border-left: 5px solid #ef4444;">
+                <b style="color: #b91c1c;">🔴 RISK ACCELERATORS</b><br>
+                <span style="font-size: 12px; color: #7f1d1d;">Factors increasing churn probability.</span>
             </div>
         """, unsafe_allow_html=True)
     with guide_col2:
         st.markdown("""
-            <div style="background-color: rgba(16, 185, 129, 0.15); padding: 15px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                <b style="color: #34d399;">🟢 RETENTION ANCHORS</b><br>
-                <span style="font-size: 12px; color: #cbd5e1;">Features stabilizing the relationship (Negative).</span>
+            <div style="background-color: #dcfce7; padding: 15px; border-radius: 12px; border-left: 5px solid #10b981;">
+                <b style="color: #14532d;">🟢 RETENTION ANCHORS</b><br>
+                <span style="font-size: 12px; color: #14532d;">Factors stabilizing the relationship.</span>
             </div>
         """, unsafe_allow_html=True)
 
-    # The Plot - Using the corrected display values and base value
-    st_shap(shap.force_plot(base_value, display_shap_vals[0], raw_input_df, link="logit", text_rotation=0, plot_cmap=["#10b981", "#ef4444"]), height=200)
+    # The Plot
+    st_shap(shap.force_plot(base_value, display_shap_vals[0], raw_input_df, link="logit", text_rotation=0), height=200)
 
     # Dynamic Insights
     feature_names = raw_input_df.columns
     contributions = pd.DataFrame({'Feature': feature_names, 'Influence': display_shap_vals[0]}).sort_values(by='Influence', ascending=False)
-
     top_risk = contributions.iloc[0]
     top_strength = contributions.iloc[-1]
 
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
-    st.markdown("#### ⚡ ACTIONABLE INTELLIGENCE")
+    st.markdown("<h4 style='color:#0f172a; margin-top:0;'>⚡ ACTIONABLE INTELLIGENCE</h4>", unsafe_allow_html=True)
     i_col1, i_col2 = st.columns(2)
     with i_col1:
         st.write(f"🚩 **CRITICAL DRIVER:** `{top_risk['Feature']}`")
-        st.caption("Primary catalyst for churn risk in this profile.")
+        st.caption("Primary factor currently driving risk upward.")
     with i_col2:
         if top_strength['Influence'] < 0:
             st.write(f"🛡️ **RETENTION ANCHOR:** `{top_strength['Feature']}`")
-            st.caption("Strongest factor preventing profile escalation.")
+            st.caption("Strongest factor currently maintaining stability.")
     st.markdown('</div>', unsafe_allow_html=True)
 
 except Exception as e:
@@ -286,6 +275,6 @@ except Exception as e:
 # FOOTER
 st.markdown(f"""
     <div class="footer">
-        PREDICTIVE INTELLIGENCE PORTAL v1.0 | Developed by Patrick Ndabarishye 
+        PREDICTIVE INTELLIGENCE PORTAL v2.0 | Developed by Patrick Ndabarishye 
     </div>
 """, unsafe_allow_html=True)
