@@ -248,8 +248,8 @@ try:
             </div>
         """, unsafe_allow_html=True)
 
-    # The Plot
-    st_shap(shap.force_plot(base_value, display_shap_vals[0], raw_input_df, link="logit", text_rotation=0), height=200)
+    # The Plot - Removed link="logit" so the center f(x) matches the raw score calculation
+    st_shap(shap.force_plot(base_value, display_shap_vals[0], raw_input_df, text_rotation=0), height=200)
 
     # --- f(x) INTERPRETATION GUIDE ---
     total_output = base_value + display_shap_vals[0].sum()
@@ -258,9 +258,11 @@ try:
             <h4 style="margin-top:0; color:#0f172a; font-size: 14px;">🎯 The Final Score: f(x) = {total_output:.2f}</h4>
             <p style="font-size: 12px; color: #1e293b; line-height: 1.5; font-family: 'Times New Roman', Times, serif;">
                 The bold number <b>{total_output:.2f}</b> in the center of the graph is the "Final Verdict" of the AI's tug-of-war. 
+                This value matches the center of the graph above exactly.
                 <br>• <b>Positive Number (>0):</b> The customer is officially leaning towards <b>Churning</b>.
                 <br>• <b>Negative Number (<0):</b> The customer is officially leaning towards <b>Staying</b>.
-                <br>Currently, the total risk balance is <b>{total_output:.2f}</b>. This score was reached because the Red (Risk) forces outweighed the Blue (Retention) forces.
+                <br>Currently, the total risk balance is <b>{total_output:.2f}</b>. 
+                This score is the exact sum of the <b>Base Value ({base_value:.2f})</b> plus all individual <b>Red</b> and <b>Blue</b> forces.
             </p>
         </div>
     """, unsafe_allow_html=True)
