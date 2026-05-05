@@ -251,6 +251,20 @@ try:
     # The Plot
     st_shap(shap.force_plot(base_value, display_shap_vals[0], raw_input_df, link="logit", text_rotation=0), height=200)
 
+    # --- f(x) INTERPRETATION GUIDE ---
+    total_output = base_value + display_shap_vals[0].sum()
+    st.markdown(f"""
+        <div style="background-color: #f8fafc; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; margin-top: -20px; margin-bottom: 20px;">
+            <h4 style="margin-top:0; color:#0f172a; font-size: 14px;">🎯 The Final Score: f(x) = {total_output:.2f}</h4>
+            <p style="font-size: 12px; color: #1e293b; line-height: 1.5; font-family: 'Times New Roman', Times, serif;">
+                The bold number <b>{total_output:.2f}</b> in the center of the graph is the "Final Verdict" of the AI's tug-of-war. 
+                <br>• <b>Positive Number (>0):</b> The customer is officially leaning towards <b>Churning</b>.
+                <br>• <b>Negative Number (<0):</b> The customer is officially leaning towards <b>Staying</b>.
+                <br>Currently, the total risk balance is <b>{total_output:.2f}</b>. This score was reached because the Red (Risk) forces outweighed the Blue (Retention) forces.
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
     # Dynamic Insights
     feature_names = raw_input_df.columns
     contributions = pd.DataFrame({'Feature': feature_names, 'Influence': display_shap_vals[0]}).sort_values(by='Influence', ascending=False)
