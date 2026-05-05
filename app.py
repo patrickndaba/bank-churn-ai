@@ -229,29 +229,41 @@ try:
     explainer = shap.TreeExplainer(xgb_base_model)
     shap_vals = explainer.shap_values(scaled_input)
     
+    # --- ROBUST SHAP CLASS SELECTION ---
+    # For binary models, SHAP may return a list [stay_vals, churn_vals] 
+    # or just a single array of churn_vals depending on model type/version.
+    if isinstance(shap_vals, list):
+        # We target Class 1 (Churn) which is the second item in the list
+        display_shap_vals = shap_vals[1]
+        base_value = explainer.expected_value[1]
+    else:
+        # If it's a single array, we use it directly
+        display_shap_vals = shap_vals
+        base_value = explainer.expected_value
+
     # Visual Guide for Dark Theme
     guide_col1, guide_col2 = st.columns(2)
     with guide_col1:
         st.markdown("""
             <div style="background-color: rgba(239, 68, 68, 0.15); padding: 15px; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.3);">
                 <b style="color: #f87171;">🔴 RISK ACCELERATORS</b><br>
-                <span style="font-size: 12px; color: #cbd5e1;">Features pushing the prediction towards churn.</span>
+                <span style="font-size: 12px; color: #cbd5e1;">Features pushing the prediction towards churn (Positive).</span>
             </div>
         """, unsafe_allow_html=True)
     with guide_col2:
         st.markdown("""
             <div style="background-color: rgba(16, 185, 129, 0.15); padding: 15px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.3);">
                 <b style="color: #34d399;">🟢 RETENTION ANCHORS</b><br>
-                <span style="font-size: 12px; color: #cbd5e1;">Features stabilizing the customer relationship.</span>
+                <span style="font-size: 12px; color: #cbd5e1;">Features stabilizing the relationship (Negative).</span>
             </div>
         """, unsafe_allow_html=True)
 
-    # The Plot
-    st_shap(shap.force_plot(explainer.expected_value, shap_vals[0], raw_input_df, link="logit", text_rotation=0, plot_cmap=["#10b981", "#ef4444"]), height=200)
+    # The Plot - Using the corrected display values and base value
+    st_shap(shap.force_plot(base_value, display_shap_vals[0], raw_input_df, link="logit", text_rotation=0, plot_cmap=["#10b981", "#ef4444"]), height=200)
 
     # Dynamic Insights
     feature_names = raw_input_df.columns
-    contributions = pd.DataFrame({'Feature': feature_names, 'Influence': shap_vals[0]}).sort_values(by='Influence', ascending=False)
+    contributions = pd.DataFrame({'Feature': feature_names, 'Influence': display_shap_vals[0]}).sort_values(by='Influence', ascending=False)
 
     top_risk = contributions.iloc[0]
     top_strength = contributions.iloc[-1]
