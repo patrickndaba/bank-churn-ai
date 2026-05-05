@@ -242,9 +242,9 @@ try:
         """, unsafe_allow_html=True)
     with guide_col2:
         st.markdown("""
-            <div style="background-color: #dcfce7; padding: 15px; border-radius: 12px; border-left: 5px solid #10b981;">
-                <b style="color: #14532d;">🟢 RETENTION ANCHORS</b><br>
-                <span style="font-size: 12px; color: #14532d;">Factors stabilizing the relationship.</span>
+            <div style="background-color: #dbeafe; padding: 15px; border-radius: 12px; border-left: 5px solid #3b82f6;">
+                <b style="color: #1e3a8a;">🔵 RETENTION ANCHORS</b><br>
+                <span style="font-size: 12px; color: #1e3a8a;">Factors stabilizing the relationship (Negative).</span>
             </div>
         """, unsafe_allow_html=True)
 
